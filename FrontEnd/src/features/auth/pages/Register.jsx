@@ -7,13 +7,13 @@ const Register = () => {
   const navigate = useNavigate();
   const { loading, handleRegister } = useAuth();
 
-  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleRegister({ fullName, email, password });
+    await handleRegister({ username, email, password });
     navigate("/");
   };
 
@@ -39,14 +39,14 @@ const Register = () => {
         <h1>Create Account</h1>
         <p className="subtitle">Join us today and get started</p>
 
-        <form onSubmit={handleSubmit} method="POST">
+        <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="fullName">Full Name</label>
             <input
               type="text"
               id="fullName"
               name="fullName"
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="John Doe"
               required
             />

@@ -15,7 +15,7 @@ export async function register({ username, email, password }) {
 
     return response.data;
   } catch (error) {
-    console.log(error, "Register faild error!");
+    throw error;
   }
 }
 
@@ -28,7 +28,7 @@ export async function login({ email, password }) {
 
     return response.data;
   } catch (error) {
-    console.log(error, "Login faild error!");
+    console.log(error, "Login failed error!");
   }
 }
 
@@ -47,6 +47,6 @@ export async function getMe() {
     const responce = await api.get("/api/auth/get-me");
     return responce.data;
   } catch (error) {
-    console.log(error, "GetMe faild error!");
+    console.log(error, "GetMe failed error!");
   }
 }
