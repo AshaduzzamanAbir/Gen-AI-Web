@@ -1,11 +1,38 @@
 import React, { useState } from "react";
 import "../pages/auth.form.scss";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { loading, handleLogin } = useAuth();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    await handleLogin({ email, password });
+
+    navigate("/");
   };
+
+  if (loading) {
+    return (
+      <main>
+        <div className="loader">
+          <div className="loader-square"></div>
+          <div className="loader-square"></div>
+          <div className="loader-square"></div>
+          <div className="loader-square"></div>
+          <div className="loader-square"></div>
+          <div className="loader-square"></div>
+          <div className="loader-square"></div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main>
@@ -13,13 +40,18 @@ const Login = () => {
         <h1>Welcome Back</h1>
         <p className="subtitle">Sign in to continue to your account</p>
 
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleSubmit}
+          method="POST"
+          // enctype="multipart/form-data"
+        >
           <div className="input-group">
             <label htmlFor="email">Email Address</label>
             <input
               type="email"
               id="email"
               name="email"
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               required
             />
@@ -31,6 +63,7 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
             />
