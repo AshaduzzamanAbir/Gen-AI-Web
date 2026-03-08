@@ -89,3 +89,7 @@ Thumbs.db
 # Optional: If using uploads
 # ==============================
 uploads/
+
+
+BackEnd/package-lock.json
+BackEnd/package.json

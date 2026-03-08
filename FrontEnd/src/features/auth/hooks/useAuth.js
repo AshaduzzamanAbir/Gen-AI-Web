@@ -50,10 +50,14 @@ export const useAuth = () => {
 
   useEffect(() => {
     const getAndSetUser = async () => {
-      const data = await getMe();
-      setUser(data.user);
-
-      setLoading(false);
+      try {
+        const data = await getMe();
+        setUser(data.user);
+      } catch (error) {
+        console.log(error, "user not found");
+      } finally {
+        setLoading(false);
+      }
     };
     getAndSetUser();
   }, []);
