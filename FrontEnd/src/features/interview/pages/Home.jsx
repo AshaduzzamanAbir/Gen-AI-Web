@@ -1,11 +1,34 @@
-import React, { useState } from "react";
-import "./home.scss";
+import React, { useState, useRef } from "react";
+import "../../interview/styles/home.scss";
+import { useInterview } from "../hooks/useInterview";
+import { useNavigate } from "react-router";
 
 const Home = () => {
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const [resume, setResume] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+
+  const { loading, generateReport } = useInterview();
+  // const resumeInputRef = useRef();
+
+  const navigate = useNavigate();
+
+  // handle Generate  Report function
+  const handleGenerateReport = async () => {
+    if (!resume) {
+      alert("Please upload your resume");
+      return;
+    }
+
+    const data = await generateReport({
+      jobDescription,
+      selfDescription,
+      resumeFile: resume,
+    });
+
+    navigate(`/interview/${data._id}`);
+  };
 
   // Theme State
   const [bgColor, setBgColor] = useState("#0f172a");
@@ -16,14 +39,21 @@ const Home = () => {
       setResume(e.target.files[0]);
     }
   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // setLoading(true);
+  //   // // TODO: Implement API call here to send data to backend
+  //   // console.log({ jobDescription, selfDescription, resume });
+  //   // setTimeout(() => setLoading(false), 2000);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    // TODO: Implement API call here to send data to backend
-    console.log({ jobDescription, selfDescription, resume });
-    setTimeout(() => setIsLoading(false), 2000);
-  };
+  //   const resume = resumeInputRef.current.files[0];
+  //   const data = await generateReport({
+  //     jobDescription,
+  //     selfDescription,
+  //     resume: resume,
+  //   });
+  //   navigate(`/interview/${data._id}`);
+  // };
 
   // Theme Functions
   const changeColor = (color) => setBgColor(color);
@@ -87,7 +117,7 @@ const Home = () => {
           Generate your custom interview preparation plan
         </p>
       </header>
-      <form className="main-content" onSubmit={handleSubmit}>
+      <div className="main-content">
         <div className="left-section">
           <label htmlFor="jobDescription" className="label">
             Job Description
@@ -134,11 +164,16 @@ const Home = () => {
               onChange={(e) => setSelfDescription(e.target.value)}
             />
           </div>
-          <button type="submit" className="submit-button" disabled={isLoading}>
-            {isLoading ? "Generating..." : "Generate Plan"}
+          <button
+            onClick={handleGenerateReport}
+            // type="submit"
+            className="submit-button"
+            disabled={loading}
+          >
+            {loading ? "Generating..." : "Generate Plan"}
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ $bg-glass: rgba(30, 41, 59, 0.6);
 
 .home-container {
   min-height: 100vh;
-  padding: 12px 10px;
+  padding: 12px 20px;
   font-family: 'Inter', 'Segoe UI', sans-serif;
   color: $text-main;
   transition: background-color 0.5s ease, font-size 0.3s ease;
@@ -29,8 +29,7 @@ $bg-glass: rgba(30, 41, 59, 0.6);
     padding: 12px 20px;
     border-radius: 14px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    gap: 24px;
+    
     z-index: 100;
     box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
     animation: slideIn 0.5s ease-out;
@@ -54,8 +53,8 @@ $bg-glass: rgba(30, 41, 59, 0.6);
       }
 
       .color-btn {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
         border-radius: 24px;
         border: 2px solid rgba(255, 255, 255, 0.2);
         cursor: pointer;
@@ -116,12 +115,12 @@ $bg-glass: rgba(30, 41, 59, 0.6);
     border-radius: 24px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     max-width: 1200px;
-    width: 100%;
+    width: 80%;
     overflow: hidden;
     
     .left-section, .right-section {
       flex: 1;
-      padding: 20px;
+      padding: 25px;
       min-width: 250px;
     }
 
